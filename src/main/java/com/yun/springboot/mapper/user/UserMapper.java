@@ -1,6 +1,5 @@
 package com.yun.springboot.mapper.user;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yun.springboot.model.entity.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-05-30
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper {
 
 }

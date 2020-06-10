@@ -2,8 +2,6 @@ package com.yun.springboot.service.poetry;
 
 import com.yun.springboot.model.dto.Id;
 import com.yun.springboot.model.entity.poetry.PoetryDo;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.yun.springboot.model.vo.PoetryVo;
 
 import java.util.List;
 
@@ -15,9 +13,11 @@ import java.util.List;
  * @author yun
  * @since 2020-05-29
  */
-public interface IPoetryService extends IService<PoetryDo> {
+public interface IPoetryService {
 
-    PoetryDo selectMaxPoetryId();
+    PoetryDo getMaxPoetryId();
 
-    List<Id> selectRandomPoetry();
+    List<Id> getRandomPoetry();
+
+    PoetryDo getById(Long id);
 }

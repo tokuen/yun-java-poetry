@@ -2,9 +2,8 @@ package com.yun.springboot.mapper.poetry;
 
 import com.yun.springboot.model.dto.Id;
 import com.yun.springboot.model.entity.poetry.PoetryDo;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yun.springboot.model.vo.PoetryVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,10 +15,13 @@ import java.util.List;
  * @author yun
  * @since 2020-05-29
  */
-public interface PoetryMapper extends BaseMapper<PoetryDo> {
+@Mapper
+public interface PoetryMapper{
 
     PoetryDo selectMaxPoetryId();
 
     List<Id> selectRandomPoetry();
+
+    PoetryDo selectById(@Param("id") Long id);
 
 }

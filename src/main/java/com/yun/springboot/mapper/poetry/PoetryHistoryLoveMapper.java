@@ -1,7 +1,6 @@
 package com.yun.springboot.mapper.poetry;
 
 import com.yun.springboot.model.entity.poetry.PoetryHistoryLoveDo;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,7 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-05-29
  */
 @Mapper
-
-public interface PoetryHistoryLoveMapper extends BaseMapper<PoetryHistoryLoveDo> {
+public interface PoetryHistoryLoveMapper{
 
 }

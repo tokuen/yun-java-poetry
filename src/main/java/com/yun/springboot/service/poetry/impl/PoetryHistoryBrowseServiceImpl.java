@@ -3,7 +3,6 @@ package com.yun.springboot.service.poetry.impl;
 import com.yun.springboot.model.entity.poetry.PoetryHistoryBrowseDo;
 import com.yun.springboot.mapper.poetry.PoetryHistoryBrowseMapper;
 import com.yun.springboot.service.poetry.IPoetryHistoryBrowseService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PoetryHistoryBrowseServiceImpl
-        extends ServiceImpl<PoetryHistoryBrowseMapper, PoetryHistoryBrowseDo>
         implements IPoetryHistoryBrowseService {
 
 }

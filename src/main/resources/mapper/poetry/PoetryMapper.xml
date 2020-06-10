@@ -14,8 +14,15 @@
 
     <select id="selectRandomPoetry" resultMap="IdMap">
         select id
-         from poetry where  type =20 and state=3 and del_flag =0 and CHAR_LENGTH(content) &lt; 200
+         from poetry where  type =20 and state=3 and del_flag =0 and long_photo !='' and CHAR_LENGTH(content) &lt; 200
          order by id desc
     </select>
+
+    <select id="selectById" resultType="com.yun.springboot.model.entity.poetry.PoetryDo">
+        select *
+         from poetry where id = #{id}
+         order by id desc
+    </select>
+
 
 </mapper>

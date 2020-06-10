@@ -35,7 +35,7 @@ public class PoetryController {
     @RequestMapping("/getMaxPoetry")
     public RetResult getMaxPoetry() {
 
-        PoetryDo poetryDo = poetryService.selectMaxPoetryId();
+        PoetryDo poetryDo = poetryService.getMaxPoetryId();
 
         PoetryVo poetryVo = new PoetryVo();
         poetryVo.setAuthor(poetryDo.getAuthor());
@@ -57,12 +57,9 @@ public class PoetryController {
     @RequestMapping("/getRandomPoetry")
     public RetResult getRandomPoetry() {
 
-        List<Id> ids = poetryService.selectRandomPoetry();
-        Random r = new Random(1);
-        int randomInt = r.nextInt(ids.size());
-
-        PoetryDo poetryDo = poetryService.getById(Long.valueOf(randomInt));
-
+        List<Id> ids = poetryService.getRandomPoetry();
+        int randomInt =(int) (Math.random() * ids.size() +1);
+        PoetryDo poetryDo = poetryService.getById(ids.get(randomInt).getId());
         PoetryVo poetryVo = new PoetryVo();
         poetryVo.setAuthor(poetryDo.getAuthor());
         poetryVo.setType(poetryDo.getType());

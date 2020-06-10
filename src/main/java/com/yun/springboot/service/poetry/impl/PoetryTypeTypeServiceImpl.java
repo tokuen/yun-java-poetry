@@ -1,9 +1,6 @@
 package com.yun.springboot.service.poetry.impl;
 
-import com.yun.springboot.model.entity.poetry.PoetryTypeTypeDo;
-import com.yun.springboot.mapper.poetry.PoetryTypeTypeMapper;
 import com.yun.springboot.service.poetry.IPoetryTypeTypeService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-05-29
  */
 @Service
-public class PoetryTypeTypeServiceImpl extends ServiceImpl<PoetryTypeTypeMapper, PoetryTypeTypeDo> implements IPoetryTypeTypeService {
+public class PoetryTypeTypeServiceImpl implements IPoetryTypeTypeService {
 
 }

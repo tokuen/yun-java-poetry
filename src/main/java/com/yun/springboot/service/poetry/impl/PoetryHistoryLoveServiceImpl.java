@@ -3,7 +3,6 @@ package com.yun.springboot.service.poetry.impl;
 import com.yun.springboot.model.entity.poetry.PoetryHistoryLoveDo;
 import com.yun.springboot.mapper.poetry.PoetryHistoryLoveMapper;
 import com.yun.springboot.service.poetry.IPoetryHistoryLoveService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +14,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-05-29
  */
 @Service
-public class PoetryHistoryLoveServiceImpl extends ServiceImpl<PoetryHistoryLoveMapper, PoetryHistoryLoveDo> implements IPoetryHistoryLoveService {
+public class PoetryHistoryLoveServiceImpl  implements IPoetryHistoryLoveService {
 
 }

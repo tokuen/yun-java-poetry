@@ -1,7 +1,5 @@
 package com.yun.springboot.service.poetry;
 
-import com.yun.springboot.model.entity.poetry.PoetryHistoryFavouriteDo;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -11,6 +9,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author yun
  * @since 2020-05-29
  */
-public interface IPoetryHistoryFavouriteService extends IService<PoetryHistoryFavouriteDo> {
+public interface IPoetryHistoryFavouriteService{
 
 }
