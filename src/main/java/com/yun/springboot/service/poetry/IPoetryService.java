@@ -1,8 +1,11 @@
 package com.yun.springboot.service.poetry;
 
+import com.yun.springboot.model.dto.Id;
 import com.yun.springboot.model.entity.poetry.PoetryDo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yun.springboot.model.vo.PoetryVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,4 +19,5 @@ public interface IPoetryService extends IService<PoetryDo> {
 
     PoetryDo selectMaxPoetryId();
 
+    List<Id> selectRandomPoetry();
 }

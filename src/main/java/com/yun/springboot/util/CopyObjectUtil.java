@@ -1,20 +1,18 @@
 package com.yun.springboot.util;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 
 public class CopyObjectUtil {
 
-    public static <T> T copyObj(Class<?> doClass, Class<T> voClass) {
-        T voObj = null;
+    public static void copyObj(Object doObject, Object voObject) {
         try {
-            voObj = voClass.newInstance();
-            BeanUtils.copyProperties(doClass, voObj);
-        } catch (InstantiationException e) {
+            BeanUtils.copyProperties(doObject, voObject);
+        } catch (BeansException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return voObj;
     }
 
 }

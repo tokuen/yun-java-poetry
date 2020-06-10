@@ -17,11 +17,6 @@ public class PoetryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * id
-     */
-    private Long id;
-
-    /**
      * 内容
      */
     private String content;
@@ -29,7 +24,7 @@ public class PoetryVo implements Serializable {
     /**
      * 摘要
      */
-    private String contentAbstract;
+    private String content_abstract;
 
     /**
      * 作者
@@ -44,42 +39,42 @@ public class PoetryVo implements Serializable {
     /**
      * 类型名称
      */
-    private String typeName;
+    private String type_name;
 
     /**
      * 创建人
      */
-    private String openId;
+    private String open_id;
 
     /**
      * 出自
      */
-    private String contentFrom;
+    private String content_from;
 
     /**
      * 原图
      */
-    private String originalPhoto;
+    private String original_photo;
 
     /**
      * 标准图
      */
-    private String standardPhoto;
+    private String standard_photo;
 
     /**
      * 长图
      */
-    private String longPhoto;
+    private String long_photo;
 
     /**
      * 宽图
      */
-    private String widePhoto;
+    private String wide_photo;
 
     /**
      * 省略图
      */
-    private String ellipsisPhoto;
+    private String ellipsis_photo;
 
 
 

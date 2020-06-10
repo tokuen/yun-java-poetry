@@ -44,7 +44,7 @@ public class PoetryDo implements Serializable {
     /**
      * 类型
      */
-    private String type;
+    private Integer type;
 
     /**
      * 创建人

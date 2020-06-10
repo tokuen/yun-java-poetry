@@ -25,16 +25,25 @@ public class DataSource1Config {
     public DataSource db1DataSource() {
         return DataSourceBuilder.create().build();
     }
- 
+
+    @Bean
+    @ConfigurationProperties(prefix = "mybatis.configuration.poetry.master")
+    public org.apache.ibatis.session.Configuration configurationPoetryMaster(){
+        //开启驼峰命名
+        return new org.apache.ibatis.session.Configuration();
+    }
+
+
     @Bean
     @Primary
     public SqlSessionFactory db1SqlSessionFactory(@Qualifier("db1DataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
+        bean.setConfiguration(this.configurationPoetryMaster());
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/mapper/poetry/*.xml"));
         return bean.getObject();
     }
- 
+
     @Bean
     @Primary
     public DataSourceTransactionManager db1TransactionManager(@Qualifier("db1DataSource") DataSource dataSource) {

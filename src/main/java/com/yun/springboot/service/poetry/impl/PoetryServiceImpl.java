@@ -1,5 +1,6 @@
 package com.yun.springboot.service.poetry.impl;
 
+import com.yun.springboot.model.dto.Id;
 import com.yun.springboot.model.entity.poetry.PoetryDo;
 import com.yun.springboot.mapper.poetry.PoetryMapper;
 import com.yun.springboot.service.poetry.IPoetryService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -27,5 +29,9 @@ public class PoetryServiceImpl extends ServiceImpl<PoetryMapper, PoetryDo> imple
     public PoetryDo selectMaxPoetryId() {
 //        poetryMapper
         return poetryMapper.selectMaxPoetryId();
+    }
+
+    public List<Id> selectRandomPoetry(){
+        return poetryMapper.selectRandomPoetry();
     }
 }

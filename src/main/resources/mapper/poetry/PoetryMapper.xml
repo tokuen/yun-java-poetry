@@ -2,9 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yun.springboot.mapper.poetry.PoetryMapper">
 
+    <resultMap id="IdMap" type="com.yun.springboot.model.dto.Id" >
+        <result column="id" property="id" jdbcType="BIGINT" />
+    </resultMap>
+
     <select id="selectMaxPoetryId" resultType="com.yun.springboot.model.entity.poetry.PoetryDo">
         select *
-        from poetry
+         from poetry where state=3 and del_flag =0
         order by id desc limit 1
     </select>
+
+    <select id="selectRandomPoetry" resultMap="IdMap">
+        select id
+         from poetry where  type =20 and state=3 and del_flag =0 and CHAR_LENGTH(content) &lt; 200
+         order by id desc
+    </select>
+
 </mapper>
