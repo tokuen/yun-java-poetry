@@ -3,15 +3,15 @@ package com.yun.springboot.util;
 import java.util.Collection;
 import java.util.Map;
 
-public class IsEmptyUtil {
+public class MyUtil {
 
     public static boolean isEmpty4Object(Object... objectArr) {
         if (objectArr == null || objectArr.length == 0) {
-            return false;
+            return true;
         }
         for (int i = 0; i < objectArr.length; i++) {
             if(objectArr[i]==null){
-                return false;
+                return true;
             }
 
             if (objectArr[i] instanceof String) {
@@ -25,11 +25,11 @@ public class IsEmptyUtil {
                 return map.isEmpty();
             }
         }
-        return true;
+        return false;
     }
 
     public static void main(String[] args) {
         int[] intArr = null;
-        System.out.println(IsEmptyUtil.isEmpty4Object(intArr));;
+        System.out.println(MyUtil.isEmpty4Object(intArr));;
     }
 }

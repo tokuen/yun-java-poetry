@@ -2,7 +2,9 @@ package com.yun.springboot.exception;
 
 
 import com.yun.springboot.model.result.ErrorCode;
-
+/**
+ * 自定义异常
+ */
 public class SignalingException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

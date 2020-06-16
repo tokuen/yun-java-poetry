@@ -8,6 +8,7 @@ public enum ErrorCode {
     //10001000-10002000 系统异常
     ERR_CODE_SYSTEM_UNKNOWN_ERROR_10001000              (-10001000, "系统未知异常"),
     ERR_CODE_NO_DATA_FOUND_10001001                     (-10001001, "未查询到数据"),
+    ERR_CODE_PARSE_JSON_DATA_ERROR_10001002             (-10001002, "解析json异常，请检查json格式"),
     //10002000-10003000 业务异常
     //10003000-10004000 活动异常
     //10005000-10006000

@@ -17,6 +17,11 @@ public class PoetryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * id
+     */
+    private Long id;
+
+    /**
      * 内容
      */
     private String content;
