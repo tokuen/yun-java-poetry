@@ -19,6 +19,6 @@ mvn compile
 
 mvn package
 
-cd target
+cd /opt/app/yun-java-poetry/target
 
 nohup java -jar yun-java-poetry-0.0.1.jar --spring.profiles.active=prod  > /opt/logs/yun-java-poetry/all.log 2>&1 &
