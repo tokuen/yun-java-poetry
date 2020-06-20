@@ -1,4 +1,6 @@
-PID=$(ps -ef | grep eladmin-system-2.4.jar | grep -v grep | awk '{ print $2 }')
+#!/bin/bash
+
+PID=$(ps -ef | grep yun-java-poetry-0.0.1.jar | grep -v grep | awk '{ print $2 }')
 if [ -z "$PID" ]
 then
 echo Application is already stopped
@@ -19,4 +21,4 @@ mvn package
 
 cd target
 
-nohup java -jar yun-java-poetry-0.0.1.jar --spring.profiles.active=prod & /opt/logs/yun-java-poetry/all.log
+nohup java -jar yun-java-poetry-0.0.1.jar --spring.profiles.active=prod  > /opt/logs/yun-java-poetry/all.log 2>&1 &
