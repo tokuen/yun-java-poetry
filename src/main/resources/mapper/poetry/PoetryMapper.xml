@@ -21,7 +21,7 @@
     <select id="selectById" resultType="com.yun.springboot.model.entity.poetry.PoetryDo">
         select *
          from poetry where id = #{id}
-         order by id desc
+         order by id desc limit 1
     </select>
 
 

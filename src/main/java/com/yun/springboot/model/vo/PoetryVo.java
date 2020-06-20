@@ -1,5 +1,12 @@
 package com.yun.springboot.model.vo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yun.springboot.exception.SignalingException;
+import com.yun.springboot.model.cache.DataCache;
+import com.yun.springboot.model.dto.PoetryExt;
+import com.yun.springboot.model.entity.poetry.PoetryDo;
+import com.yun.springboot.model.result.ErrorCode;
+import com.yun.springboot.util.MyUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,6 +22,46 @@ import java.time.LocalDateTime;
 public class PoetryVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public PoetryVo(PoetryDo poetryDo) {
+        this.id = poetryDo.getId();
+
+        boolean showContentFlag = true;
+        boolean showContentFromFlag = true;
+        if (!MyUtil.isEmpty4Object(poetryDo.getExt())) {
+            String ext = poetryDo.getExt();
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                PoetryExt poetryExt = objectMapper.readValue(ext, PoetryExt.class);
+                if (!MyUtil.isEmpty4Object(poetryExt)) {
+                    showContentFlag = poetryExt.isShow_content_flag();
+                    showContentFromFlag = poetryExt.isShow_content_from_flag();
+                }
+            } catch (Exception e) {
+                throw new SignalingException(ErrorCode.ERR_CODE_PARSE_JSON_DATA_ERROR_10001002,e);
+            }
+        }
+        if (showContentFlag) {
+            this.content = poetryDo.getContent();
+        } else {
+            this.content = "";
+        }
+        if (showContentFromFlag) {
+            this.content_from = poetryDo.getContentFrom();
+        } else {
+            this.content_from = "";
+        }
+        this.content_abstract = poetryDo.getContentAbstract();
+        this.author = poetryDo.getAuthor();
+        this.type = poetryDo.getType();
+        this.type_name = DataCache.TYPE_NAME_CACHE.get(poetryDo.getType());
+        this.open_id = poetryDo.getOpenId();
+        this.original_photo = poetryDo.getOriginalPhoto();
+        this.standard_photo = poetryDo.getStandardPhoto();
+        this.long_photo = poetryDo.getLongPhoto();
+        this.wide_photo = poetryDo.getWidePhoto();
+        this.ellipsis_photo = poetryDo.getWidePhoto();
+    }
 
     /**
      * id
@@ -80,7 +127,5 @@ public class PoetryVo implements Serializable {
      * 省略图
      */
     private String ellipsis_photo;
-
-
 
 }

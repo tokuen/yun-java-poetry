@@ -7,4 +7,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class PoetryExt {
     private boolean show_content_flag;
+    private boolean show_content_from_flag;
 }
