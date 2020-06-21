@@ -10,10 +10,9 @@ kill -9 $PID
 fi
 
 cd /opt/app/yun-java-poetry
+mvn clean
 
 git pull
-
-mvn clean
 
 mvn compile
 
