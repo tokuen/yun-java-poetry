@@ -16,9 +16,9 @@ import java.util.Map;
 
 @Aspect
 @Component
-public class LogAspect {
+public class RequestLogAspect {
 
-    private static final String LOG_REQUEST_IN = "%s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s";
+    private static final String LOG_REQUEST_STR = "%s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s";
 
     private static final Logger requestLogger = LoggerFactory.getLogger("request_audit_logger");
 
@@ -60,8 +60,6 @@ public class LogAspect {
         long startTimeMillis = System.currentTimeMillis(); // 记录方法开始执行的时间
         Object result = pjp.proceed();//当使用环绕通知时，这个方法必须调用，否则拦截到的方法就不会再执行了
         long endTimeMillis = System.currentTimeMillis(); // 记录方法执行完成的时间
-//        TIMESTAMP  输出日志的时间戳
-        String timestamp = "";
 //        PROXY_IP 代理IP
         String proxyIp = RequestUtils.getProxyIP(request);
 //        PROXY_PORT 代理端口
@@ -85,10 +83,8 @@ public class LogAspect {
         String requestId =(String) request.getAttribute("request_id");
 //        XHEAD_UNIQUE_ID 扩展包头里的uniqueId, 若没有值则记录1
         String xheadUniqueId = "1";
-//        SERVICEID  服务号
-        String serviceId = "999999001";
-//        MSGID  消息号
-        String msgId = "0";
+//        SERVICEID  项目名称
+        String serviceId = "yun-java-poetry";
 //        SERVER_IP 服务端IP
         String serverIp = request.getLocalAddr();
 //        RECEIVE_TIME 收到请求的的时间
@@ -117,8 +113,7 @@ public class LogAspect {
             responseCode = "200";
         }
 
-        timestamp = df.format(System.currentTimeMillis());
-        String requestAuditLog = String.format(LOG_REQUEST_IN, timestamp, proxyIp, proxyPort, clientIp, clientPort, appId, areaId, socId, requestId, xheadUniqueId, serviceId, msgId, serverIp, receiveTime, elapseTime, type, dummy, idx1, idx2, idx3, requestBody, responseBody, responseCode);
+        String requestAuditLog = String.format(LOG_REQUEST_STR, proxyIp, proxyPort, clientIp, clientPort, appId, areaId, socId, requestId, xheadUniqueId, serviceId, serverIp, receiveTime, elapseTime, type, dummy, idx1, idx2, idx3, requestBody, responseBody, responseCode);
         this.printOptLog(requestLogger, requestAuditLog);
         return result;
     }

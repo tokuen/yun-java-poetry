@@ -24,17 +24,17 @@ public class PoetryServiceImpl implements IPoetryService {
     private PoetryMapper poetryMapper;
 
     @Override
-    public PoetryDo getMaxPoetryId() {
+    public PoetryDo getMaxPoetryId(String requestId) {
 //        poetryMapper
-        return poetryMapper.selectMaxPoetryId();
+        return poetryMapper.selectMaxPoetryId(requestId);
     }
 
-    public List<Id> getRandomPoetry(){
-        return poetryMapper.selectRandomPoetry();
+    public List<Id> getRandomPoetry(String requestId){
+        return poetryMapper.selectRandomPoetry(requestId);
     }
 
     @Override
-    public PoetryDo getById(Long id) {
-        return poetryMapper.selectById(id);
+    public PoetryDo getById(String requestId,Long id) {
+        return poetryMapper.selectById(requestId,id);
     }
 }

@@ -15,9 +15,9 @@ import java.util.List;
  */
 public interface IPoetryService {
 
-    PoetryDo getMaxPoetryId();
+    PoetryDo getMaxPoetryId(String requestId);
 
-    List<Id> getRandomPoetry();
+    List<Id> getRandomPoetry(String requestId);
 
-    PoetryDo getById(Long id);
+    PoetryDo getById(String requestId,Long id);
 }

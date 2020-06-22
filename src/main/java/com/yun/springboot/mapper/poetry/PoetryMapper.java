@@ -18,10 +18,10 @@ import java.util.List;
 @Mapper
 public interface PoetryMapper{
 
-    PoetryDo selectMaxPoetryId();
+    PoetryDo selectMaxPoetryId(String requestId);
 
-    List<Id> selectRandomPoetry();
+    List<Id> selectRandomPoetry(String requestId);
 
-    PoetryDo selectById(@Param("id") Long id);
+    PoetryDo selectById(String requestId,@Param("id") Long id);
 
 }

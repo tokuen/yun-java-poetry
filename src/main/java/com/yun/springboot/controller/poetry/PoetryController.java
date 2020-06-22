@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -30,24 +31,28 @@ public class PoetryController {
     private IPoetryService poetryService;
 
     @RequestMapping("/getMaxPoetry")
-    public RetResult getMaxPoetry() {
-        PoetryDo poetryDo = poetryService.getMaxPoetryId();
+    public RetResult getMaxPoetry(HttpServletRequest req) {
+        String requestId = req.getParameter("requestId");
+        PoetryDo poetryDo = poetryService.getMaxPoetryId(requestId);
         PoetryVo poetryVo = new PoetryVo(poetryDo);
         return RetResponseUtil.makeOKRsp(poetryVo);
     }
 
     @RequestMapping("/getRandomPoetry")
-    public RetResult getRandomPoetry() {
-        List<Id> ids = poetryService.getRandomPoetry();
+    public RetResult getRandomPoetry(HttpServletRequest req) {
+        String requestId = req.getParameter("requestId");
+        List<Id> ids = poetryService.getRandomPoetry(requestId);
         int randomInt =(int) (Math.random() * ids.size());
-        PoetryDo poetryDo = poetryService.getById(ids.get(randomInt).getId());
+        PoetryDo poetryDo = poetryService.getById(requestId,ids.get(randomInt).getId());
         PoetryVo poetryVo = new PoetryVo(poetryDo);
         return RetResponseUtil.makeOKRsp(poetryVo);
     }
 
     @RequestMapping("/getIndexPoetry")
-    public RetResult getIndexPoetry(@RequestParam(value = "id") Long id) {
-        PoetryDo poetryDo = poetryService.getById(id);
+    public RetResult getIndexPoetry(HttpServletRequest req,@RequestParam(value = "id") Long id) {
+        String requestId = req.getParameter("requestId");
+
+        PoetryDo poetryDo = poetryService.getById(requestId,id);
         PoetryVo poetryVo = new PoetryVo(poetryDo);
         return RetResponseUtil.makeOKRsp(poetryVo);
     }
