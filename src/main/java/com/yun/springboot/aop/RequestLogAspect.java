@@ -80,7 +80,7 @@ public class RequestLogAspect {
             socId = request.getRequestURI();
         }
 //        REQUEST_ID 请求ID
-        String requestId =(String) request.getAttribute("request_id");
+        String requestId =(String) request.getAttribute("requestId");
 //        XHEAD_UNIQUE_ID 扩展包头里的uniqueId, 若没有值则记录1
         String xheadUniqueId = "1";
 //        SERVICEID  项目名称

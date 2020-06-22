@@ -23,7 +23,7 @@ public class RequestFilter implements Filter {
         if(MyUtil.isEmpty4Object(request_id)){
             request_id = UUID.randomUUID().toString().trim().replaceAll("-", "");
         }
-        req.setAttribute("request_id",request_id);
+        req.setAttribute("requestId",request_id);
         filterChain.doFilter(req, resp);
     }
 
