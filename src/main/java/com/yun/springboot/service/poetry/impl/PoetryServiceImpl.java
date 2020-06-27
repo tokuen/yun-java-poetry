@@ -1,5 +1,6 @@
 package com.yun.springboot.service.poetry.impl;
 
+import com.yun.springboot.log.FlowLogUtil;
 import com.yun.springboot.model.dto.Id;
 import com.yun.springboot.model.entity.poetry.PoetryDo;
 import com.yun.springboot.mapper.poetry.PoetryMapper;
@@ -25,16 +26,27 @@ public class PoetryServiceImpl implements IPoetryService {
 
     @Override
     public PoetryDo getMaxPoetryId(String requestId) {
-//        poetryMapper
-        return poetryMapper.selectMaxPoetryId(requestId);
+//        long startTimeMillis = System.currentTimeMillis();
+        PoetryDo poetryDo = poetryMapper.selectMaxPoetryId(requestId);
+//        long endTimeMillis = System.currentTimeMillis();
+//        FlowLogUtil.printLog(requestId,startTimeMillis,endTimeMillis,poetryDo);
+        return poetryDo;
     }
 
     public List<Id> getRandomPoetry(String requestId){
-        return poetryMapper.selectRandomPoetry(requestId);
+//        long startTimeMillis = System.currentTimeMillis();
+        List<Id> ids = poetryMapper.selectRandomPoetry(requestId);
+//        long endTimeMillis = System.currentTimeMillis();
+//        FlowLogUtil.printLog(requestId,startTimeMillis,endTimeMillis,ids);
+        return ids;
     }
 
     @Override
     public PoetryDo getById(String requestId,Long id) {
-        return poetryMapper.selectById(requestId,id);
+//        long startTimeMillis = System.currentTimeMillis();
+        PoetryDo poetryDo = poetryMapper.selectById(requestId, id);
+//        long endTimeMillis = System.currentTimeMillis();
+//        FlowLogUtil.printLog(requestId,startTimeMillis,endTimeMillis,poetryDo);
+        return poetryDo;
     }
 }

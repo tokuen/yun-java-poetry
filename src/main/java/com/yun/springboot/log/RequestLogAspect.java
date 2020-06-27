@@ -1,5 +1,6 @@
-package com.yun.springboot.aop;
+package com.yun.springboot.log;
 
+import com.yun.springboot.util.LogUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +19,7 @@ import java.util.Map;
 @Component
 public class RequestLogAspect {
 
-    private static final String LOG_REQUEST_STR = "%s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s";
+    private static final String LOG_REQUEST_STR = "%s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s,  %s";
 
     private static final Logger requestLogger = LoggerFactory.getLogger("request_audit_logger");
 
@@ -29,64 +30,42 @@ public class RequestLogAspect {
 
     @Around("execution(* com..*.controller..*.*(..))")
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-        /**
-         * 获取request信息
-         */
+
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
         String contentType = request.getContentType();
 
         //是否拦截并包装请求，如果需要拦截则会获取RequestBody
-        boolean filterRequestFlag = RequestUtils.checkContentType(contentType, contentTypes);
+        boolean filterRequestFlag = LogUtils.checkContentType(contentType, contentTypes);
         // 其他类型的请求不拦截消息体
         Map<String, String[]> inputParamMap = null;
         if (filterRequestFlag) {
             inputParamMap = request.getParameterMap();
         }
 
-        // 拦截的实体类，就是当前正在执行的controller
-//        Object target = pjp.getTarget();
-        // 拦截的方法名称。当前正在执行的方法
-//        String methodName = pjp.getSignature().getName();
-        // 拦截的放参数类型
-        //Signature sig = pjp.getSignature();
-        // 拦截的方法参数
-        //Object[] args = pjp.getArgs();
-
-        //String path = request.getContextPath();
-        //String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-
         long startTimeMillis = System.currentTimeMillis(); // 记录方法开始执行的时间
         Object result = pjp.proceed();//当使用环绕通知时，这个方法必须调用，否则拦截到的方法就不会再执行了
         long endTimeMillis = System.currentTimeMillis(); // 记录方法执行完成的时间
-//        PROXY_IP 代理IP
-        String proxyIp = RequestUtils.getProxyIP(request);
-//        PROXY_PORT 代理端口
-        String proxyPort = String.valueOf(request.getRemotePort());
+//        PROXY_IP 代理IP:代理端口
+        String proxyIp = LogUtils.getProxyIP(request).replaceAll(":",".")+
+                ":"+request.getRemotePort();
 //        CLIENT_IP 客户端IP
-        String clientIp = RequestUtils.getRealIP(request);
-//        CLIENT_PORT 客户端端口
-        String clientPort = String.valueOf(request.getRemotePort());
-//        APPID  扩展包头的APPID
-        String appId = "0";
-//        AREAID  扩展包头的AREAID
-        String areaId = "0";
+        String clientIp = LogUtils.getRealIP(request).replaceAll(":",".")+
+                request.getRemotePort();
 //        SOCID  客户端标识url
         String socId = "";
-        if (RequestUtils.isEmpty(request.getRequestURI())) {
+        if (LogUtils.isEmpty(request.getRequestURI())) {
             socId = request.getQueryString();
         } else {
             socId = request.getRequestURI();
         }
 //        REQUEST_ID 请求ID
         String requestId =(String) request.getAttribute("requestId");
-//        XHEAD_UNIQUE_ID 扩展包头里的uniqueId, 若没有值则记录1
-        String xheadUniqueId = "1";
 //        SERVICEID  项目名称
         String serviceId = "yun-java-poetry";
 //        SERVER_IP 服务端IP
-        String serverIp = request.getLocalAddr();
+        String serverIp = request.getLocalAddr()+":8000";
 //        RECEIVE_TIME 收到请求的的时间
         String receiveTime = df.format(startTimeMillis);
 //        ELAPSE_TIME, 耗时，等于 TIMESTAMP - RECEIVE_TIME
@@ -95,35 +74,16 @@ public class RequestLogAspect {
         String dummy = pjp.getTarget().getClass().getCanonicalName().substring(pjp.getTarget().getClass().getCanonicalName().lastIndexOf(".") + 1) + "." + pjp.getSignature().getName();
 //        type 请求方式
         String type = request.getMethod();
-//        IDX1  索引字段1
-        String idx1 = "";
-//        IDX2  索引字段2
-        String idx2 = "";
-//        IDX3  索引字段3
-        String idx3 = "";
 //        REQUEST_BODY 请求参数，参数之间分割符为 ^_^
-        String requestBody = RequestUtils.getRequestBody(inputParamMap, request);
+        String requestBody = LogUtils.getRequestBody(inputParamMap, request);
 //        RESPONSE_BODY 响应参数，参数之间分割符为 ^_^
-        String responseBody = RequestUtils.getResponseBody(result);
+        String responseBody = LogUtils.getResponseBody(result);
 //        RESPONSE_CODE 错误码
-        String responseCode = "";
-        if (!RequestUtils.isEmpty(RequestUtils.getResultCode(result))) {
-            responseCode = RequestUtils.getResultCode(result);
-        } else {
-            responseCode = "200";
-        }
+        int responseCode = LogUtils.getResultCode(result);
 
-        String requestAuditLog = String.format(LOG_REQUEST_STR, proxyIp, proxyPort, clientIp, clientPort, appId, areaId, socId, requestId, xheadUniqueId, serviceId, serverIp, receiveTime, elapseTime, type, dummy, idx1, idx2, idx3, requestBody, responseBody, responseCode);
-        this.printOptLog(requestLogger, requestAuditLog);
+        String requestAuditLog = String.format(LOG_REQUEST_STR, proxyIp, clientIp, socId, requestId, serviceId, serverIp, receiveTime, elapseTime, type, dummy,requestBody, responseBody, responseCode);
+        LogUtils.printLog(requestLogger, requestAuditLog);
         return result;
     }
 
-    /**
-     * @Title：printOptLog
-     * @Description: 输出日志
-     * @author guo
-     */
-    private void printOptLog(Logger logger, String logString) {
-        logger.info(logString);
-    }
 }

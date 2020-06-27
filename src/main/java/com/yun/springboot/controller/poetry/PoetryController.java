@@ -7,6 +7,7 @@ import com.yun.springboot.model.result.RetResponseUtil;
 import com.yun.springboot.model.result.RetResult;
 import com.yun.springboot.model.vo.PoetryVo;
 import com.yun.springboot.service.poetry.IPoetryService;
+import com.yun.springboot.util.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -42,9 +43,14 @@ public class PoetryController {
     @RequestMapping("/getRandomPoetry")
     public RetResult getRandomPoetry(HttpServletRequest req) {
         String requestId =(String) req.getAttribute("requestId");
+        requestId=LogUtils.getNewReqId(requestId);
+
         List<Id> ids = poetryService.getRandomPoetry(requestId);
         int randomInt =(int) (Math.random() * ids.size());
+
+        requestId=LogUtils.getNewReqId(requestId);
         PoetryDo poetryDo = poetryService.getById(requestId,ids.get(randomInt).getId());
+
         PoetryVo poetryVo = new PoetryVo(poetryDo);
         return RetResponseUtil.makeOKRsp(poetryVo);
     }
@@ -52,7 +58,7 @@ public class PoetryController {
     @RequestMapping("/getIndexPoetry")
     public RetResult getIndexPoetry(HttpServletRequest req,@RequestParam(value = "id") Long id) {
         String requestId =(String) req.getAttribute("requestId");
-        PoetryDo poetryDo = poetryService.getById(requestId,id);
+        PoetryDo poetryDo = poetryService.getById(LogUtils.getNewReqId(requestId),id);
         PoetryVo poetryVo = new PoetryVo(poetryDo);
         return RetResponseUtil.makeOKRsp(poetryVo);
     }

@@ -28,6 +28,14 @@ public class MyUtil {
         return false;
     }
 
+    public static int indexOf(String[] arr,String key){
+        for (int i = 0; i < arr.length; i++) {
+            if(key.equals(arr[i])){
+                return i;
+            }
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         int[] intArr = null;
         System.out.println(MyUtil.isEmpty4Object(intArr));;
